@@ -1,0 +1,27 @@
+class Solution {
+    public int[] getLeastNumbers(int[] arr, int k) {
+        if (k == 0) {
+            return new int[0];
+        }
+        // 大顶堆k
+        Queue<Integer> heap = new PriorityQueue<>(k, (n1, n2) -> Integer.compare(n2, n1));
+        for(int n : arr) {
+            // 小于k或者小于顶堆则插入
+            if (heap.isEmpty() || heap.size()<k || heap.peek()>n) {
+                heap.offer(n);
+            }
+            // 大于k,推出顶堆
+            if (heap.size() > k) {
+                heap.poll();
+            }
+        }
+        // 取值k
+        int[] res = new int[heap.size()];
+        int i=0;
+        for(int n : heap) {
+            res[i]=n;
+            i++;
+        }
+        return res;
+    }
+}
