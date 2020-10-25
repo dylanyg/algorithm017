@@ -1,0 +1,34 @@
+class Solution {
+    public boolean lemonadeChange(int[] bills) {
+        // 记录零钱5元、10元
+        int five=0, ten=0;
+        // 循环
+        for(int bill : bills) {
+            // 条件1: 5
+            if (bill == 5) {
+                five++;
+            }
+            // 条件2: 10
+            if (bill == 10) {
+                if (five > 0) {
+                    five--;
+                    ten++;
+                } else {
+                    return false;
+                }
+            }
+            // 提交3：20
+            if (bill == 20) {
+                if (five > 0 && ten > 0) {
+                    five--;
+                    ten--;
+                } else if (five > 2) {
+                    five-=3;
+                } else {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+}
