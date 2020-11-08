@@ -1,0 +1,26 @@
+class Solution {
+    public int longestCommonSubsequence(String text1, String text2) {
+        int[][] dp = new int[text1.length()+1][text2.length()+1];
+        for(int i=0;i<text1.length()+1;i++) {
+            dp[i][0]=0;
+        }
+        for(int i=0;i<text2.length()+1;i++) {
+            dp[0][i]=0;
+        }
+        for(int i=0;i<text1.length();i++) {
+            for(int j=0;j<text2.length();j++) {
+                int left = dp[i][j+1];
+                int top = dp[i+1][j];
+                int last = Math.max(left, top);
+                // 我们会发现遍历两个串字符，当不同时需要考虑两层遍历前面的值（关系传递），也就是左边和上边的其中较大的值，                 当想相同时，需要考虑各自不包含当前字符串的子序列长度，再加上1。
+
+                if (text1.charAt(i) == text2.charAt(j)) {
+                    dp[i+1][j+1] = dp[i][j]+1; // 不懂
+                } else {
+                    dp[i+1][j+1] = last;
+                }
+            }
+        }
+        return dp[text1.length()][text2.length()];
+    }
+}
